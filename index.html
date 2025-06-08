@@ -490,75 +490,76 @@
     <p>© 2025 Passive Hustle Lab. Built with 💼 by John.</p>
     <p class="mt-2 text-sm">Privacy Policy | Affiliate Disclosure</p>
   </footer>
+        
+    <!-- 1. Offer Buttons (click targets) -->
+    <button class="offerBtn" data-offer="https://offer-link1.com">Get eBook 1</button>
+    <button class="offerBtn" data-offer="https://offer-link2.com">Get eBook 2</button>
+    <!-- etc... -->
     
-  <!-- Modal HTML (keep this right before </body>) -->
-<!-- Modal -->
-<div id="offerModal" class="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center z-50 hidden">
-  <div class="bg-white rounded-lg p-6 max-w-md w-full text-center">
-    <h2 class="text-2xl font-bold mb-4">⚡ Wait! A Special Offer Awaits You...</h2>
-    <p class="mb-4">To download your eBook, please complete a sponsor offer. Click "Continue" to proceed.</p>
-    <div id="countdown" class="text-xl font-mono font-semibold mb-4">03:00</div>
-    <div class="flex justify-center gap-4">
-      <button id="continueBtn" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded">Continue</button>
-      <button id="closeBtn" class="bg-gray-300 hover:bg-gray-400 text-black px-4 py-2 rounded">No Thanks</button>
+    <!-- 2. The Modal (should be placed right before the closing </body>) -->
+    <div id="offerModal" class="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center z-50 hidden">
+      <div class="bg-white rounded-lg p-6 max-w-md w-full text-center">
+        <h2 class="text-2xl font-bold mb-4">⚡ Wait! A Special Offer Awaits You...</h2>
+        <p class="mb-4">To download your eBook, please complete a sponsor offer. Click "Continue" to proceed.</p>
+        <div id="countdown" class="text-xl font-mono font-semibold mb-4">03:00</div>
+        <div class="flex justify-center gap-4">
+          <button id="continueBtn" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded">Continue</button>
+          <button id="closeBtn" class="bg-gray-300 hover:bg-gray-400 text-black px-4 py-2 rounded">No Thanks</button>
+        </div>
+      </div>
     </div>
-  </div>
-</div>
-
-
-<script>
-  document.addEventListener("DOMContentLoaded", () => {
-    const modal = document.getElementById("offerModal");
-    const continueBtn = document.getElementById("continueBtn");
-    const closeBtn = document.getElementById("closeBtn");
-    const countdown = document.getElementById("countdown");
-
-    let countdownInterval;
-    let offerLink = ""; // will store clicked offer's link
-
-    function startCountdown(duration) {
-      let timeLeft = duration;
-
-      countdown.textContent = "03:00";
-      clearInterval(countdownInterval);
-
-      countdownInterval = setInterval(() => {
-        let minutes = Math.floor(timeLeft / 60);
-        let seconds = timeLeft % 60;
-        countdown.textContent = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
-
-        if (--timeLeft < 0) {
+    
+    <!-- 3. The JavaScript to control modal behavior -->
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const modal = document.getElementById("offerModal");
+        const continueBtn = document.getElementById("continueBtn");
+        const closeBtn = document.getElementById("closeBtn");
+        const countdown = document.getElementById("countdown");
+    
+        let countdownInterval;
+        let offerLink = "";
+    
+        function startCountdown(duration) {
+          let timeLeft = duration;
+          countdown.textContent = "03:00";
           clearInterval(countdownInterval);
-          countdown.textContent = "Offer expired";
-          continueBtn.disabled = true;
+    
+          countdownInterval = setInterval(() => {
+            let minutes = Math.floor(timeLeft / 60);
+            let seconds = timeLeft % 60;
+            countdown.textContent = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+    
+            if (--timeLeft < 0) {
+              clearInterval(countdownInterval);
+              countdown.textContent = "Offer expired";
+              continueBtn.disabled = true;
+            }
+          }, 1000);
         }
-      }, 1000);
-    }
-
-    // Open modal on offer click
-    document.querySelectorAll(".offerBtn").forEach(btn => {
-      btn.addEventListener("click", () => {
-        offerLink = btn.getAttribute("data-offer");
-        modal.classList.remove("hidden");
-        startCountdown(180); // 3 minutes
-        continueBtn.disabled = false;
+    
+        document.querySelectorAll(".offerBtn").forEach(btn => {
+          btn.addEventListener("click", () => {
+            offerLink = btn.getAttribute("data-offer");
+            modal.classList.remove("hidden");
+            startCountdown(180);
+            continueBtn.disabled = false;
+          });
+        });
+    
+        closeBtn.addEventListener("click", () => {
+          modal.classList.add("hidden");
+          clearInterval(countdownInterval);
+        });
+    
+        continueBtn.addEventListener("click", () => {
+          if (offerLink) {
+            window.location.href = offerLink;
+          }
+        });
       });
-    });
+    </script>
 
-    // Close modal
-    closeBtn.addEventListener("click", () => {
-      modal.classList.add("hidden");
-      clearInterval(countdownInterval);
-    });
-
-    // Redirect to offer link
-    continueBtn.addEventListener("click", () => {
-      if (offerLink) {
-        window.location.href = offerLink;
-      }
-    });
-  });
-</script>
 
 
 
