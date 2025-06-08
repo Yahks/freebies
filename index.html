@@ -492,51 +492,76 @@
   </footer>
     
   <!-- Modal HTML (keep this right before </body>) -->
-<div id="offerModal">
-  <div class="modal-content">
-    <h2>⚡ Wait! A Special Offer Awaits You...</h2>
-    <p>To download your eBook, please complete a sponsor offer. Click "Continue" to proceed.</p>
-
-    <div id="countdown">03:00</div>
-
-    <button id="continueBtn">Continue to Offer</button>
-    <button id="closeBtn">No Thanks</button>
+<!-- Modal -->
+<div id="offerModal" class="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center z-50 hidden">
+  <div class="bg-white rounded-lg p-6 max-w-md w-full text-center">
+    <h2 class="text-2xl font-bold mb-4">⚡ Wait! A Special Offer Awaits You...</h2>
+    <p class="mb-4">To download your eBook, please complete a sponsor offer. Click "Continue" to proceed.</p>
+    <div id="countdown" class="text-xl font-mono font-semibold mb-4">03:00</div>
+    <div class="flex justify-center gap-4">
+      <button id="continueBtn" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded">Continue</button>
+      <button id="closeBtn" class="bg-gray-300 hover:bg-gray-400 text-black px-4 py-2 rounded">No Thanks</button>
+    </div>
   </div>
 </div>
 
+
 <!-- Modal Script -->
 <script>
-  window.addEventListener("DOMContentLoaded", () => {
+  document.addEventListener("DOMContentLoaded", () => {
     const modal = document.getElementById("offerModal");
-    const countdown = document.getElementById("countdown");
-    const closeBtn = document.getElementById("closeBtn");
     const continueBtn = document.getElementById("continueBtn");
+    const closeBtn = document.getElementById("closeBtn");
+    const countdown = document.getElementById("countdown");
 
-    let timeLeft = 180; // 3 minutes in seconds
+    let countdownInterval;
+    let offerLink = ""; // will store clicked offer's link
 
-    setTimeout(() => {
-      modal.classList.add("visible");
+    function startCountdown(duration) {
+      let timeLeft = duration;
 
-      const timer = setInterval(() => {
-        if (timeLeft <= 0) {
-          clearInterval(timer);
+      countdown.textContent = "03:00";
+      clearInterval(countdownInterval);
+
+      countdownInterval = setInterval(() => {
+        let minutes = Math.floor(timeLeft / 60);
+        let seconds = timeLeft % 60;
+        countdown.textContent = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+
+        if (--timeLeft < 0) {
+          clearInterval(countdownInterval);
           countdown.textContent = "Offer expired";
           continueBtn.disabled = true;
-        } else {
-          let minutes = Math.floor(timeLeft / 60);
-          let seconds = timeLeft % 60;
-          countdown.textContent = 
-            `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
-          timeLeft--;
         }
       }, 1000);
-    }, 3000); // Show modal after 3 seconds
+    }
 
+    // Open modal on offer click
+    document.querySelectorAll(".offerBtn").forEach(btn => {
+      btn.addEventListener("click", () => {
+        offerLink = btn.getAttribute("data-offer");
+        modal.classList.remove("hidden");
+        startCountdown(180); // 3 minutes
+        continueBtn.disabled = false;
+      });
+    });
+
+    // Close modal
     closeBtn.addEventListener("click", () => {
-      modal.classList.remove("visible");
+      modal.classList.add("hidden");
+      clearInterval(countdownInterval);
+    });
+
+    // Redirect to offer link
+    continueBtn.addEventListener("click", () => {
+      if (offerLink) {
+        window.location.href = offerLink;
+      }
     });
   });
 </script>
+
+
 
 
 
