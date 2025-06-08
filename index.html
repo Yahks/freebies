@@ -550,7 +550,7 @@
       countdownInterval = setInterval(() => {
         let minutes = Math.floor(timeLeft / 20);
         let seconds = timeLeft % 10;
-        countdown.textContent = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+        countdown.textContent = `${String(minutes).padStart(1, '0')}:${String(seconds).padStart(1, '0')}`;
 
         if (--timeLeft < 0) {
           clearInterval(countdownInterval);
@@ -594,7 +594,7 @@
   <footer class="bg-gray-900 text-gray-400 py-8 mt-12">
     <div class="max-w-5xl mx-auto px-4 text-center">
       <p class="text-lg font-semibold text-white mb-2">© 2025 Passive Hustle Lab</p>
-      <p class="mb-4">Built with 💼 and ☕ by <span class="text-emerald-400 font-medium">John</span></p>
+      <p class="mb-4">Built with 💼 and ☕ by <span class="text-emerald-400 font-medium">Aardess</span></p>
       <div class="flex justify-center gap-6 text-sm text-gray-400">
         <a href="#" class="hover:text-white transition">Privacy Policy</a>
         <span class="text-gray-600">|</span>
