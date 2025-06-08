@@ -18,6 +18,68 @@
       background-size: cover;
       background-position: center;
     }
+
+      /* Popup (modal) styles */
+    #offerModal {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background-color: rgba(0,0,0,0.7);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      visibility: hidden; /* Hidden by default */
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      pointer-events: none;
+    }
+    
+    #offerModal.visible {
+      visibility: visible; /* Show when active */
+      opacity: 1;
+      pointer-events: auto;
+    }
+    
+    .modal-content {
+      background: #222;
+      color: white;
+      padding: 2rem;
+      border-radius: 10px;
+      max-width: 400px;
+      text-align: center;
+      box-shadow: 0 0 15px #000;
+    }
+    
+    #countdown {
+      font-size: 2rem;
+      color: #ffcc00;
+      margin: 1rem 0;
+      font-weight: bold;
+    }
+    
+    button {
+      background-color: #28a745;
+      border: none;
+      padding: 0.8rem 2rem;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      border-radius: 5px;
+      transition: background-color 0.3s ease;
+    }
+    
+    button:hover {
+      background-color: #218838;
+    }
+    
+    #closeBtn {
+      background-color: #dc3545;
+      margin-left: 1rem;
+    }
+    
+    #closeBtn:hover {
+      background-color: #c82333;
+    }
   </style>
 
   <!-- Open Graph / Facebook -->
@@ -424,90 +486,8 @@
       }
 
     });
-  </script>
 
-
-  <!-- Footer -->
-  <footer class="bg-gray-900 text-gray-400 text-center py-6 mt-10">
-    <p>© 2025 Passive Hustle Lab. Built with 💼 by John.</p>
-    <p class="mt-2 text-sm">Privacy Policy | Affiliate Disclosure</p>
-  </footer>
-  <style>
-    /* Popup (modal) styles */
-    #offerModal {
-      position: fixed;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background-color: rgba(0,0,0,0.7);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      z-index: 9999;
-      visibility: hidden; /* Hidden by default */
-      opacity: 0;
-      transition: opacity 0.3s ease;
-      pointer-events: none;
-    }
-    
-    #offerModal.visible {
-      visibility: visible; /* Show when active */
-      opacity: 1;
-      pointer-events: auto;
-    }
-    
-    .modal-content {
-      background: #222;
-      color: white;
-      padding: 2rem;
-      border-radius: 10px;
-      max-width: 400px;
-      text-align: center;
-      box-shadow: 0 0 15px #000;
-    }
-    
-    #countdown {
-      font-size: 2rem;
-      color: #ffcc00;
-      margin: 1rem 0;
-      font-weight: bold;
-    }
-    
-    button {
-      background-color: #28a745;
-      border: none;
-      padding: 0.8rem 2rem;
-      color: white;
-      font-weight: bold;
-      cursor: pointer;
-      border-radius: 5px;
-      transition: background-color 0.3s ease;
-    }
-    
-    button:hover {
-      background-color: #218838;
-    }
-    
-    #closeBtn {
-      background-color: #dc3545;
-      margin-left: 1rem;
-    }
-    
-    #closeBtn:hover {
-      background-color: #c82333;
-    }
-    </style>
-       <div id="offerModal">
-      <div class="modal-content">
-        <h2>⚡ Wait! A Special Offer Awaits You...</h2>
-        <p>To download your eBook, please complete a sponsor offer. Click "Continue" to proceed.</p>
-    
-        <div id="countdown">03:00</div>
-    
-        <button id="continueBtn">Continue to Offer</button>
-        <button id="closeBtn">No Thanks</button>
-      </div>
-    </div>
-
-      // Popup variables
+          // Popup variables
     const offerModal = document.getElementById("offerModal");
     const continueBtn = document.getElementById("continueBtn");
     const closeBtn = document.getElementById("closeBtn");
@@ -562,6 +542,29 @@
       offerModal.classList.remove("visible");
       clearInterval(countdownInterval);
     });
+
+  </script>
+
+
+  <!-- Footer -->
+  <footer class="bg-gray-900 text-gray-400 text-center py-6 mt-10">
+    <p>© 2025 Passive Hustle Lab. Built with 💼 by John.</p>
+    <p class="mt-2 text-sm">Privacy Policy | Affiliate Disclosure</p>
+  </footer>
+    
+  
+       <div id="offerModal">
+      <div class="modal-content">
+        <h2>⚡ Wait! A Special Offer Awaits You...</h2>
+        <p>To download your eBook, please complete a sponsor offer. Click "Continue" to proceed.</p>
+    
+        <div id="countdown">03:00</div>
+    
+        <button id="continueBtn">Continue to Offer</button>
+        <button id="closeBtn">No Thanks</button>
+      </div>
+    </div>
+
 
 </body>
 </html>
