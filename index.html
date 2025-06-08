@@ -321,16 +321,17 @@
             </div>
           </div>
           
-                  <div class="offerBtn block" data-offer="https://offer-link1.com">
-            <div class="relative rounded-xl overflow-hidden shadow-lg group cursor-pointer h-48">
-              <img src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=800&q=80" alt="CPA/Lead Generation" class="absolute inset-0 w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"/>
-              <div class="absolute inset-0 bg-black bg-opacity-50 group-hover:bg-opacity-30 transition duration-300"></div>
-              <div class="relative z-10 p-6 flex flex-col justify-center h-full text-white">
+         <div class="offerBtn block" data-offer="https://offer-link1.com">
+          <div class="relative rounded-xl overflow-hidden shadow-lg group cursor-pointer h-48">
+            <img src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=800&q=80" alt="CPA/Lead Generation" class="absolute inset-0 w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"/>
+             <div class="absolute inset-0 bg-black bg-opacity-50 group-hover:bg-opacity-30 transition duration-300"></div>
+               <div class="relative z-10 p-6 flex flex-col justify-center h-full text-white">
                 <h3 class="text-xl font-semibold mb-2">Learn Python And Make Passive Income</h3>
                 <p class="text-sm">How to earn from sharing product links—even while you sleep.</p>
+               <div class="offerBtn block" data-offer="https://offer-link1.com" role="button" tabindex="0">
               </div>
             </div>
-          </div>
+         </div>
         
       </div>
     </div>
@@ -510,60 +511,66 @@
     </div>
     
     <!-- 3. The JavaScript to control modal behavior -->
-    <script>
-      document.addEventListener("DOMContentLoaded", () => {
-        const modal = document.getElementById("offerModal");
-        const continueBtn = document.getElementById("continueBtn");
-        const closeBtn = document.getElementById("closeBtn");
-        const countdown = document.getElementById("countdown");
-    
-        let countdownInterval;
-        let offerLink = "";
-    
-        function startCountdown(duration) {
-          let timeLeft = duration;
-          countdown.textContent = "03:00";
+<!-- Modal HTML here -->
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const modal = document.getElementById("offerModal");
+    const continueBtn = document.getElementById("continueBtn");
+    const closeBtn = document.getElementById("closeBtn");
+    const countdown = document.getElementById("countdown");
+
+    let countdownInterval;
+    let offerLink = "";
+
+    function startCountdown(duration) {
+      let timeLeft = duration;
+      countdown.textContent = "03:00";
+      clearInterval(countdownInterval);
+
+      countdownInterval = setInterval(() => {
+        let minutes = Math.floor(timeLeft / 60);
+        let seconds = timeLeft % 60;
+        countdown.textContent = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+
+        if (--timeLeft < 0) {
           clearInterval(countdownInterval);
-    
-          countdownInterval = setInterval(() => {
-            let minutes = Math.floor(timeLeft / 60);
-            let seconds = timeLeft % 60;
-            countdown.textContent = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
-    
-            if (--timeLeft < 0) {
-              clearInterval(countdownInterval);
-              countdown.textContent = "Offer expired";
-              continueBtn.disabled = true;
-            }
-          }, 1000);
+          countdown.textContent = "Offer expired";
+          continueBtn.disabled = true;
         }
-    
-        document.querySelectorAll(".offerBtn").forEach(btn => {
-          btn.addEventListener("click", () => {
-            offerLink = btn.getAttribute("data-offer");
-            modal.classList.remove("hidden");
-            startCountdown(180);
-            continueBtn.disabled = false;
-          });
-        });
-    
-        closeBtn.addEventListener("click", () => {
-          modal.classList.add("hidden");
-          clearInterval(countdownInterval);
-        });
-    
-        continueBtn.addEventListener("click", () => {
-          if (offerLink) {
-            window.location.href = offerLink;
-          }
-        });
+      }, 1000);
+    }
+
+    // Add click listeners
+    document.querySelectorAll(".offerBtn").forEach(btn => {
+      btn.addEventListener("click", () => {
+        offerLink = btn.getAttribute("data-offer");
+        modal.classList.remove("hidden");
+        startCountdown(180);
+        continueBtn.disabled = false;
       });
-    </script>
 
+      // Accessibility: trigger with Enter/Space
+      btn.addEventListener("keydown", (e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          btn.click();
+        }
+      });
+    });
 
+    // Close modal
+    closeBtn.addEventListener("click", () => {
+      modal.classList.add("hidden");
+      clearInterval(countdownInterval);
+    });
 
-
-
-
+    // Continue to offer
+    continueBtn.addEventListener("click", () => {
+      if (offerLink) {
+        window.location.href = offerLink;
+      }
+    });
+  });
+</script>
 </body>
 </html>
